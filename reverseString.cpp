@@ -1,5 +1,6 @@
 #include<iostream>
 #include<conio.h>
+#include<vector>
 using namespace std;
 void reverse(string a,int size,int i=0){
     if(size==i){
@@ -39,6 +40,28 @@ int pow(int a,int b){
         }
     }
 }
+
+    int nthUglyNumber(int n) {
+        vector<int> ans, two,three,five;
+        ans.push_back(1);
+        int i=2;
+        while(i<1690){
+            if(i%2==0){
+                ans.push_back(i);
+            }
+            else if(i%3==0){
+                ans.push_back(i);
+            }
+            else if(i%5==0){
+                ans.push_back(i);
+            }
+        }
+        for(i=0;i<ans.size();i++){
+            cout<<ans[i]<<" ";
+        }
+        return ans[n+1];
+    }
+
 int main(){
     string a= "Hiteshree's the only girl I like";   
     reverse(a,len(a));

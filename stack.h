@@ -3,7 +3,6 @@
 #include <stdbool.h>
 struct Stack {
 char *a;
-// int max;
 int size;
 int top;
 
@@ -13,7 +12,6 @@ struct Stack* create(int size){
 struct Stack* A1 = (struct Stack*)malloc(sizeof(struct Stack));
 A1->a=(char *)malloc(size*sizeof(char));
 A1->size = size;
-// A1->size = 0;
 A1->top = -1;
 return A1;
 }
