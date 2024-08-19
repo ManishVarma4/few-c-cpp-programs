@@ -4,7 +4,6 @@ struct Queue{
     int *a;
     int size;
 };
-//creating
 struct Queue* create(){
     struct Queue* A1 = (struct Queue*)malloc(sizeof(struct Queue));
     A1->a=(int *)malloc(5*sizeof(int));
@@ -12,8 +11,7 @@ struct Queue* create(){
     return A1;
 }
 int in(struct Queue* q,int amount){
-    if(q->size==5){
-        
+    if(q->size==5){       
         return 0;
     }
     else{
@@ -24,7 +22,7 @@ int in(struct Queue* q,int amount){
 int checkout(struct Queue* q){
     if(q->size==0){
         printf("No more customers in the queue\n");
-        return -1;
+        return 0;
     }
     else{
         int cus=q->a[0];
@@ -54,9 +52,8 @@ int option(){
     printf("key 2: Checkout customer type -A\n");
     printf("key 3: Checkout customer type -B\n");
     printf("key 4: Checkout customer type -C\n");
-    printf("key 5: Show Queue type -A\n");
-    printf("key 6: Show Queue type -B\n");
-    printf("key 7: Show Queue type -C\n");
+    printf("key 5: Show Queue\n");
+    printf("key 6: Show total sales\n");
     printf("key 0: Exit\n");
     printf("--------------------------\n");
     scanf("%d",&choice);
@@ -67,7 +64,7 @@ int main(){
     struct Queue* A = create();
     struct Queue* B = create();
     struct Queue* C = create();
-    int choice,elem,amount;
+    int choice,elem,amount,sales=0;
     while(1){
         choice=option();  
         switch (choice) {
@@ -80,15 +77,15 @@ int main(){
                     printf("Enter Customer Type (1,2,3): ");
                     scanf("%d", &elem);
                     if(elem==1){
-                        if(in(A,amount)==-1){
-                            if(in(C,amount)==-1){
+                        if(in(A,amount)==0){
+                            if(in(C,amount)==0){
                                 printf("Queue is full, please wait!\n");
                             }
                         }
                     }
                     else if(elem==2){
-                        if(in(B,amount)==-1){
-                            if(in(C,amount)==-1){
+                        if(in(B,amount)==0){
+                            if(in(C,amount)==0){
                                 printf("Queue is full, please wait!\n");
                             }
                         }
@@ -101,22 +98,30 @@ int main(){
                     else printf("INVALID CUSTOMER TYPE!!!");
                     break;
                 case 2:
-                    printf("Total amount debited (cash): Rs. %d \n",checkout(A));
+                    amount=checkout(A);
+                    sales+=amount;
+                    printf("Total amount credited (cash): Rs. %d \n",amount);
                     break;
                 case 3:
-                    printf("Total amount debited (card): Rs. %d \n",checkout(B));
+                    amount=checkout(B);
+                    sales+=amount;
+                    printf("Total amount credited (card): Rs. %d \n",amount);
                     break;
                 case 4:
-                    printf("Total amount debited (cash/card): Rs. %d \n",checkout(C));
+                    amount=checkout(C);
+                    sales+=amount;
+                    printf("Total amount credited (cash/card): Rs. %d \n",amount);
                     break;
                 case 5:
+                    printf("Queue type A: ");
                     show(A);
+                    printf("Queue type B: ");
+                    show(B);
+                    printf("Queue type C: ");
+                    show(C);
                     break;
                 case 6:
-                    show(B);
-                    break;
-                case 7:
-                    show(C);
+                    printf("Total sale1 is of Rs. %d\n",sales);
                     break;
                 default:
                     printf("Error (Invalid Selection)\n");
